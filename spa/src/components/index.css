@@ -1,0 +1,52 @@
+/* Таблица устройств и команд */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.custom-table th,
+.custom-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+.custom-table th {
+  background: #f5f5f5;
+}
+
+/* Форма добавления устройства */
+.device-form {
+  margin-bottom: 20px;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fafbfc;
+  max-width: 400px;
+}
+.device-form h3 {
+  margin-top: 0;
+}
+.device-form label {
+  display: inline-block;
+  width: 100px;
+}
+.device-form input,
+.device-form select {
+  margin-bottom: 10px;
+  padding: 4px 8px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+}
+.device-form button {
+  margin-top: 8px;
+  padding: 6px 16px;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.device-form button:disabled {
+  background: #90caf9;
+  cursor: not-allowed;
+}
