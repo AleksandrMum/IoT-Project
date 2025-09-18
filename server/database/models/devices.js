@@ -16,7 +16,17 @@ const devicesModel = (client, Sequelize, DataTypes) => {
         },
         temperature: {
             type:           DataTypes.INTEGER,
-            allowNull:      true
+            allowNull:      true,
+            validate: {
+                isValidTemp(value) {
+                    if (this.status === true && (value === null || value === undefined)) {
+                        throw new Error('Temperature must be set when status is true');
+                    }
+                    if (this.status === false && value !== null && value !== undefined) {
+                        throw new Error('Temperature must be null when status is false');
+                    }
+                }
+            }
         },
         updatedAt: {
             type:           DataTypes.DATE,
