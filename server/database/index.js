@@ -11,14 +11,14 @@ const client = new Sequelize(db_conf.DB, db_conf.USER, db_conf.PASSWORD, {
     logging: false,
 });
 
-import devicesModel from "./models/devices.js";
-import commandsModel from "./models/commands.js";
-
 const db = {};
 db.Sequelize = Sequelize;
 db.Op = Op;
 db.DataTypes = DataTypes;
 db.client = client;
+
+import devicesModel from "./models/devices.js";
+import commandsModel from "./models/commands.js";
 
 db.devices = devicesModel(client, Sequelize, DataTypes);
 db.commands = commandsModel(client, Sequelize, DataTypes);
