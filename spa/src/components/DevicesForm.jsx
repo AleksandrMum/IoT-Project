@@ -35,21 +35,21 @@ const DevicesForm = ({ onAddDevice }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="device-form">
+        <form onSubmit={handleSubmit} className="form-block">
             <h3>Добавить устройство</h3>
             <div>
-                <label>Имя: </label>
+                <label>Имя:</label>
                 <input value={name} onChange={e => setName(e.target.value)} required />
             </div>
             <div>
-                <label>Статус: </label>
-                <select value={status} onChange={e => setStatus(e.target.value === 'true')} required>
+                <label>Статус:</label>
+                <select value={status} onChange={e => setStatus(e.target.value === 'true')}>
                     <option value="true">Enabled</option>
                     <option value="false">Disabled</option>
                 </select>
             </div>
             <div>
-                <label>Температура: </label>
+                <label>Температура:</label>
                 <input type="number" value={temperature} onChange={e => setTemperature(e.target.value)} />
             </div>
             <button type="submit" disabled={loading}>{loading ? 'Отправка...' : 'Добавить'}</button>

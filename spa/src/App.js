@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 import Devices from './components/Devices';
+import Commands from './components/Commands';
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/devices" element={<Devices />} />
+                <Route path="/commands" element={<Commands />} />
             </Routes>
             <Footer />
         </div>
