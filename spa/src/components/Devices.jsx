@@ -35,23 +35,20 @@ const Devices = () => {
         setDevices((prev) => [...prev, newDevice]);
     };
 
-    if (loading) {
-        return (
-            <div>Loading...</div>
-        );
-    }
-    // Содержимое компонента при ошибке
-    if (error) {
-        return (
-            <div>
-                <button onClick={() => navigate('/')}>На главную страницу</button>
-                <div>Ошибка: {error}</div>
-                <button onClick={fetchDevices}>Повторить попытку</button>
-            </div>
-        );
-    }
-
-    return (
+    if (loading) return (
+        <div>
+            <button onClick={() => navigate('/')}>На главную страницу</button>
+            <p>Loading...</p>
+        </div>
+    );
+    else if (error) return (
+        <div>
+            <button onClick={() => navigate('/')}>На главную страницу</button>
+            <p>Ошибка: {error}</p>
+            <button onClick={fetchDevices}>Повторить попытку</button>
+        </div>
+    );
+    else return (
         <div>
             <button onClick={() => navigate('/')}>На главную страницу</button>
             <h2>Устройства (Devices)</h2>

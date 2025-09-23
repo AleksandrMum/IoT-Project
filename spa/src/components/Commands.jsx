@@ -31,19 +31,20 @@ const Commands = () => {
         setCommands((prev) => [...prev, newCommand]);
     };
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-    if (error) {
-        return (
-            <div>
-                <div>Ошибка: {error}</div>
-                <button onClick={fetchCommands}>Повторить попытку</button>
-            </div>
-        );
-    }
-
-    return (
+    if (loading) return (
+        <div>
+            <button onClick={() => navigate('/')}>На главную страницу</button>
+            <p>Loading...</p>
+        </div>
+    );
+    else if (error) return (
+        <div>
+            <button onClick={() => navigate('/')}>На главную страницу</button>
+            <p>Ошибка: {error}</p>
+            <button onClick={fetchCommands}>Повторить попытку</button>
+        </div>
+    );
+    else return (
         <div>
             <button onClick={() => navigate('/')}>На главную страницу</button>
             <h2>Команды (Commands)</h2>

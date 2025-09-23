@@ -6,6 +6,7 @@ const HomePage = () => {
     const navigate = useNavigate();
     return (
         <div className="homepage">
+            <h2>Домашняя страница</h2>
             <button onClick={() => navigate('/devices')}>Devices</button>
             <button onClick={() => navigate('/commands')}>Commands</button>
         </div>
