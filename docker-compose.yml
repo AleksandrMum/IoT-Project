@@ -3,9 +3,9 @@ services:
     image: postgres:18rc1-alpine
     container_name: iot_postgres_db
     environment:
-      POSTGRES_DB: iot_database
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
@@ -25,12 +25,12 @@ services:
       dockerfile: Dockerfile
     container_name: iot_node_server
     environment:
-      DB_NAME: iot_database
-      DB_USER: postgres
-      DB_PASSWORD: postgres
-      DB_HOST: db
-      DB_PORT: 5432
-      HOST: "0.0.0.0"
+      DB_NAME: ${POSTGRES_DB}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_HOST: ${POSTGRES_HOST}
+      DB_PORT: ${POSTGRES_PORT}
+      HOST: ${HOST}
     ports:
       - "8080:8080"
     depends_on:
@@ -46,7 +46,7 @@ services:
       dockerfile: Dockerfile
     container_name: iot_spa
     environment:
-      REACT_APP_API_URL: http://localhost:8080
+      REACT_APP_API_URL: ${REACT_APP_API_URL}
     ports:
       - "3000:3000"
     depends_on:
