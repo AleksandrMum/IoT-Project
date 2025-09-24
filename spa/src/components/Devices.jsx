@@ -51,8 +51,8 @@ const Devices = () => {
     );
     else return (
         <div>
-            <button onClick={() => navigate('/')}>На главную страницу</button>
             <h2>Устройства (Devices)</h2>
+            <button onClick={() => navigate('/')}>На главную страницу</button>
             <DevicesForm onAddDevice={handleAddDevice} />
             <button onClick={fetchDevices}>Обновить данные</button>
             <table className="custom-table">

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -8,13 +8,15 @@ import Commands from './components/Commands';
 
 function App() {
     return (
-        <div>
+        <div className="app-root">
             <Header />
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/devices" element={<Devices />} />
-                <Route path="/commands" element={<Commands />} />
-            </Routes>
+            <div className="main-content">
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/devices" element={<Devices />} />
+                    <Route path="/commands" element={<Commands />} />
+                </Routes>
+            </div>
             <Footer />
         </div>
     );

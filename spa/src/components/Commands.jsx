@@ -47,8 +47,8 @@ const Commands = () => {
     );
     else return (
         <div>
-            <button onClick={() => navigate('/')}>На главную страницу</button>
             <h2>Команды (Commands)</h2>
+            <button onClick={() => navigate('/')}>На главную страницу</button>
             <CommandsForm onAddCommand={handleAddCommand} />
             <button onClick={fetchCommands}>Обновить данные</button>
             <table className="custom-table">
