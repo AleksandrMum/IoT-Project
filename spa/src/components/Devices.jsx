@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import './index.css';
 import DevicesForm from './DevicesForm';
+import { REACT_APP_API_URL } from './const.js';
 
 const Devices = () => {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ const Devices = () => {
     // Функция для загрузки данных по устройствам из БД
     const fetchDevices = () => {
         setLoading(true);
-        axios.get('http://localhost:8080/devices')
+        axios.get(`${REACT_APP_API_URL}/devices`)
             .then((res) => {
                 setDevices(res.data);
                 setError(null);

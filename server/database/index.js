@@ -1,14 +1,18 @@
-import db_conf from "./config.js";
 import { Sequelize, Op, DataTypes } from "sequelize";
+import dotenv from "dotenv";
+dotenv.config();
 
-const client = new Sequelize(db_conf.DB, db_conf.USER, db_conf.PASSWORD, {
-    host: db_conf.HOST,
-    port: db_conf.PORT,
-    dialect: db_conf.DIALECT,
-    define: {
-        timestamps: false,
-    },
-    logging: false,
+const client = new Sequelize(
+    process.env.DB_NAME, 
+    process.env.DB_USER, 
+    process.env.DB_PASSWORD, {
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        dialect: 'postgres',
+        define: {
+            timestamps: false,
+        },
+        logging: false,
 });
 
 const db = {};

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import './index.css';
 import CommandsForm from './CommandsForm';
+import { REACT_APP_API_URL } from './const.js';
 
 const Commands = () => {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Commands = () => {
 
     const fetchCommands = () => {
         setLoading(true);
-        axios.get('http://localhost:8080/commands')
+        axios.get(`${REACT_APP_API_URL}/commands`)
             .then((res) => {
                 setCommands(res.data);
                 setError(null);

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import './index.css';
+import { REACT_APP_API_URL } from './const.js';
 
 const DevicesForm = ({ onAddDevice }) => {
     const [name, setName] = useState('');
@@ -15,7 +16,7 @@ const DevicesForm = ({ onAddDevice }) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.post('http://localhost:8080/devices', {
+            const response = await axios.post(`${REACT_APP_API_URL}/devices`, {
                 name,
                 status,
                 temperature: temperature === '' ? null : Number(temperature),
