@@ -56,6 +56,7 @@ app.post("/commands", async (req, res) => {
 });
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-	console.log(`Server started on port ${PORT}`);
+const HOST = process.env.HOST || "127.0.0.1";
+app.listen(PORT, HOST, () => {
+	console.log(`Server started on http://${HOST}:${PORT}`);
 });
