@@ -1,9 +1,9 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import './index.css';
+
 import CommandsForm from './CommandsForm';
-import { REACT_APP_API_URL } from './const.js';
+import { fetchCommands, formatDateTime } from '../utils';
 
 const Commands = () => {
     const navigate = useNavigate();
@@ -11,21 +11,22 @@ const Commands = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const fetchCommands = () => {
+
+    const loadCommands = async () => {
         setLoading(true);
-        axios.get(`${REACT_APP_API_URL}/commands`)
-            .then((res) => {
-                setCommands(res.data);
-                setError(null);
-            })
-            .catch((err) => {
-                setError(err.message);
-            })
-            .finally(() => setLoading(false));
+        try {
+            const data = await fetchCommands();
+            setCommands(data);
+            setError(null);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     useEffect(() => {
-        fetchCommands();
+        loadCommands();
     }, []);
 
     const handleAddCommand = (newCommand) => {
@@ -42,7 +43,7 @@ const Commands = () => {
         <div>
             <button onClick={() => navigate('/')}>На главную страницу</button>
             <p>Ошибка: {error}</p>
-            <button onClick={fetchCommands}>Повторить попытку</button>
+            <button onClick={loadCommands}>Повторить попытку</button>
         </div>
     );
     else return (
@@ -50,7 +51,7 @@ const Commands = () => {
             <h2>Команды (Commands)</h2>
             <button onClick={() => navigate('/')}>На главную страницу</button>
             <CommandsForm onAddCommand={handleAddCommand} />
-            <button onClick={fetchCommands}>Обновить данные</button>
+            <button onClick={loadCommands}>Обновить данные</button>
             <table className="custom-table">
                 <thead>
                     <tr>
@@ -68,7 +69,7 @@ const Commands = () => {
                             <td>{cmd.deviceId}</td>
                             <td>{cmd.command}</td>
                             <td>{cmd.status ? 'Выполнено' : 'Ожидание'}</td>
-                            <td>{cmd.timestamp ? new Date(cmd.timestamp).toLocaleString() : '-'}</td>
+                            <td>{formatDateTime(cmd.timestamp)}</td>
                         </tr>
                     ))}
                 </tbody>

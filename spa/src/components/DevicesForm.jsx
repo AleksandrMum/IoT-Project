@@ -1,7 +1,6 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import './index.css';
-import { REACT_APP_API_URL } from './const.js';
+import { addDevice } from '../utils';
 
 const DevicesForm = ({ onAddDevice }) => {
     const [name, setName] = useState('');
@@ -16,14 +15,15 @@ const DevicesForm = ({ onAddDevice }) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.post(`${REACT_APP_API_URL}/devices`, {
+            const deviceData = {
                 name,
                 status,
                 temperature: temperature === '' ? null : Number(temperature),
                 updatedAt: new Date().toISOString()
-            });
+            };
+            const newDevice = await addDevice(deviceData);
             if (onAddDevice) {
-                onAddDevice(response.data);
+                onAddDevice(newDevice);
             }
             setName('');
             setStatus(true);

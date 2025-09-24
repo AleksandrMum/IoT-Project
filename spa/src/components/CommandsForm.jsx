@@ -1,7 +1,6 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import './index.css';
-import { REACT_APP_API_URL } from './const.js';
+import { addCommand } from '../utils';
 
 const CommandsForm = ({ onAddCommand }) => {
     const [deviceId, setDeviceId] = useState('');
@@ -16,14 +15,15 @@ const CommandsForm = ({ onAddCommand }) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.post(`${REACT_APP_API_URL}/commands`, {
+            const commandData = {
                 deviceId,
                 command,
                 status,
                 timestamp: timestamp ? new Date(timestamp).toISOString() : new Date().toISOString()
-            });
+            };
+            const newCommand = await addCommand(commandData);
             if (onAddCommand) {
-                onAddCommand(response.data);
+                onAddCommand(newCommand);
             }
             setDeviceId('');
             setCommand('');

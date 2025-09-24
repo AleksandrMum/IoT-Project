@@ -1,9 +1,9 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import './index.css';
+
 import DevicesForm from './DevicesForm';
-import { REACT_APP_API_URL } from './const.js';
+import { fetchDevices, formatDateTime } from '../utils';
 
 const Devices = () => {
     const navigate = useNavigate();
@@ -11,24 +11,25 @@ const Devices = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
+
     // Функция для загрузки данных по устройствам из БД
-    const fetchDevices = () => {
+    const loadDevices = async () => {
         setLoading(true);
-        axios.get(`${REACT_APP_API_URL}/devices`)
-            .then((res) => {
-                setDevices(res.data);
-                setError(null);
-            })
-            .catch((err) => {
-                setError(err.message);
-                console.log(err);
-            })
-            .finally(() => setLoading(false));
+        try {
+            const data = await fetchDevices();
+            setDevices(data);
+            setError(null);
+        } catch (err) {
+            setError(err.message);
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
     };
 
     // Загрузка данных по устройствам из БД
     useEffect(() => {
-        fetchDevices();
+        loadDevices();
     }, []);
 
     // Функция для добавления устройства в таблицу
@@ -46,7 +47,7 @@ const Devices = () => {
         <div>
             <button onClick={() => navigate('/')}>На главную страницу</button>
             <p>Ошибка: {error}</p>
-            <button onClick={fetchDevices}>Повторить попытку</button>
+            <button onClick={loadDevices}>Повторить попытку</button>
         </div>
     );
     else return (
@@ -54,7 +55,7 @@ const Devices = () => {
             <h2>Устройства (Devices)</h2>
             <button onClick={() => navigate('/')}>На главную страницу</button>
             <DevicesForm onAddDevice={handleAddDevice} />
-            <button onClick={fetchDevices}>Обновить данные</button>
+            <button onClick={loadDevices}>Обновить данные</button>
             <table className="custom-table">
                 <thead>
                     <tr>
@@ -70,9 +71,9 @@ const Devices = () => {
                         <tr key={device.uuid}>
                             <td>{device.uuid}</td>
                             <td>{device.name}</td>
-                            <td>{device.status ? 'Enabled' : 'Disabled'}</td>
+                            <td>{device.status ? 'Включено' : 'Выключено'}</td>
                             <td>{device.temperature ?? '-'}</td>
-                            <td>{device.updatedAt ? new Date(device.updatedAt).toLocaleString() : '-'}</td>
+                            <td>{formatDateTime(device.updatedAt)}</td>
                         </tr>
                     ))}
                 </tbody>
