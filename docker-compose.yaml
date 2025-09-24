@@ -12,6 +12,12 @@ services:
       - pgdata:/var/lib/postgresql/data
     networks:
       - iot_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   server:
     build:
@@ -28,9 +34,11 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - iot_network
+    restart: unless-stopped
 
   spa:
     build:
@@ -45,6 +53,7 @@ services:
       - server
     networks:
       - iot_network
+    restart: unless-stopped
 
 networks:
   iot_network:

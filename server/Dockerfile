@@ -1,10 +1,12 @@
 FROM node:20-alpine AS base
 
-WORKDIR /server
+WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
+COPY package*.json ./
+RUN npm install --only=production
 
-COPY . ./
+COPY . .
+
+USER node
 
 CMD ["node", "index.js"]

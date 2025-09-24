@@ -1,14 +1,10 @@
 FROM node:20-alpine
 
-WORKDIR /spa
+WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm ci
+COPY package*.json ./
+RUN npm install --production
 
-# Копируем public файлы
-COPY public ./public
-
-# Копируем исходники приложения
-COPY src ./src
+COPY . .
 
 CMD ["npm", "start"]
