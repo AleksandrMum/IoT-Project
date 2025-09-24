@@ -1,41 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from "react-router-dom";
 import './index.css';
-
 import DevicesForm from './DevicesForm';
-import { fetchDevices, formatDateTime } from '../utils';
+import { useDevices } from '../hooks';
+import { formatDateTime } from '../utils';
 
 const Devices = () => {
     const navigate = useNavigate();
-    const [devices, setDevices] = useState([]);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-
-    // Функция для загрузки данных по устройствам из БД
-    const loadDevices = async () => {
-        setLoading(true);
-        try {
-            const data = await fetchDevices();
-            setDevices(data);
-            setError(null);
-        } catch (err) {
-            setError(err.message);
-            console.log(err);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    // Загрузка данных по устройствам из БД
-    useEffect(() => {
-        loadDevices();
-    }, []);
-
-    // Функция для добавления устройства в таблицу
-    const handleAddDevice = (newDevice) => {
-        setDevices((prev) => [...prev, newDevice]);
-    };
+    const { devices, error, loading, loadDevices, handleAddDevice } = useDevices();
 
     if (loading) return (
         <div>

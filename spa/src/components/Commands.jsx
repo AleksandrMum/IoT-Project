@@ -1,37 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from "react-router-dom";
 import './index.css';
-
 import CommandsForm from './CommandsForm';
-import { fetchCommands, formatDateTime } from '../utils';
+import { useCommands } from '../hooks';
+import { formatDateTime } from '../utils';
+
 
 const Commands = () => {
     const navigate = useNavigate();
-    const [commands, setCommands] = useState([]);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-
-    const loadCommands = async () => {
-        setLoading(true);
-        try {
-            const data = await fetchCommands();
-            setCommands(data);
-            setError(null);
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        loadCommands();
-    }, []);
-
-    const handleAddCommand = (newCommand) => {
-        setCommands((prev) => [...prev, newCommand]);
-    };
+    const { commands, error, loading, loadCommands, handleAddCommand } = useCommands();
 
     if (loading) return (
         <div>
