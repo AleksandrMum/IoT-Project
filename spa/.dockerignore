@@ -11,3 +11,16 @@ coverage
 *.md
 .vscode
 .idea
+
+# React specific
+build
+dist
+public/build
+.cache
+.parcel-cache
+
+# Development files
+src/**/*.test.js
+src/**/*.test.jsx
+src/**/*.spec.js
+src/**/*.spec.jsx

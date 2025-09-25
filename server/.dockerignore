@@ -11,3 +11,17 @@ coverage
 *.md
 .vscode
 .idea
+
+# Development dependencies
+nodemon.json
+
+# Test files
+**/*.test.js
+**/*.spec.js
+test/
+__tests__/
+
+# Temporary files
+*.tmp
+*.temp
+.nyc_output
