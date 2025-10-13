@@ -7,5 +7,6 @@
  * @property {import('sequelize').Sequelize} client
  * Объекты моделей
  * @property {import('./models/devices').default} devices
- * @property {import('./models/commands').default} commands
+ * @property {import('./models/temperatures').default} temperatures
+ * @property {import('./models/motions').default} motions
  */

@@ -1,5 +1,5 @@
-const commandsModel = (client, Sequelize, DataTypes) => {
-    const table = client.define('commands', {
+const motionsModel = (client, Sequelize, DataTypes) => {
+    const table = client.define('motions', {
         uuid: {
             type:           DataTypes.UUID,
             primaryKey:     true,
@@ -10,15 +10,11 @@ const commandsModel = (client, Sequelize, DataTypes) => {
             type:           DataTypes.UUID,
             allowNull:      false,
         },
-        command: {
-            type:           DataTypes.STRING,
-            allowNull:      true
-        },
-        status: {
+        motionDetected: {
             type:           DataTypes.BOOLEAN,
-            allowNull:      true
+            allowNull:      false
         },
-        timestamp: {
+        createdAt: {
             type:           DataTypes.DATE,
             allowNull:      false
         }
@@ -26,4 +22,4 @@ const commandsModel = (client, Sequelize, DataTypes) => {
 
     return table;
 };
-export default commandsModel;
+export default motionsModel;

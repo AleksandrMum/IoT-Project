@@ -8,29 +8,46 @@ const devicesModel = (client, Sequelize, DataTypes) => {
         },
         name: {
             type:           DataTypes.STRING,
-            allowNull:      false
-        },
-        status: {
-            type:           DataTypes.BOOLEAN,
-            allowNull:      false
-        },
-        temperature: {
-            type:           DataTypes.INTEGER,
-            allowNull:      true,
+            allowNull:      false,
             validate: {
-                isValidTemp(value) {
-                    if (this.status === true && (value === null || value === undefined)) {
-                        throw new Error('Temperature must be set when status is true');
-                    }
-                    if (this.status === false && value !== null && value !== undefined) {
-                        throw new Error('Temperature must be null when status is false');
-                    }
+                len: {
+                    args: [3, 50],
+                    msg: "Name must be between 3 and 50 characters"
                 }
             }
         },
-        updatedAt: {
+        type: {
+            type:           DataTypes.STRING,
+            allowNull:      false,
+            validate: {
+                isIn: {
+                    args: [['temperatureSensor', 'motionSensor']],
+                    msg: "Type must be either 'temperatureSensor' or 'motionSensor'"
+                }
+            }
+        },
+        location: {
+            type:           DataTypes.STRING,
+            allowNull:      true,
+            validate: {
+                len: {
+                    args: [1, 100],
+                    msg: "Location must be between 1 and 100 characters"
+                }
+            }
+        },
+        isActive: {
+            type:           DataTypes.BOOLEAN,
+            allowNull:      false,
+            defaultValue:   true
+        },
+        createdAt: {
             type:           DataTypes.DATE,
             allowNull:      false
+        },
+        updatedAt: {
+            type:           DataTypes.DATE,
+            allowNull:      true
         }
     });
     
