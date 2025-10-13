@@ -10,7 +10,7 @@ const app = express();
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 
-db.client.sync({force: false, alter: false})
+db.client.sync({force: false, alter: true})
 	.then(() => console.log("Database OK"))
 	.catch((err) => console.error("Database ERROR:", err));
 

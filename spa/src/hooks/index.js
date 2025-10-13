@@ -1,2 +1,3 @@
 export { default as useDevices } from './useDevices';
-export { default as useCommands } from './useCommands';
+export { default as useTemperatures } from './useTemperatures';
+export { default as useMotions } from './useMotions';

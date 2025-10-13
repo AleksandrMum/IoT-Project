@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import { fetchDevices } from '../utils';
+import { fetchTemperatures } from '../utils';
 
-export default function useDevices() {
-    const [devices, setDevices] = useState([]);
+export default function useTemperatures() {
+    const [temperatures, setTemperatures] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const loadDevices = async () => {
+    const loadTemperatures = async () => {
         setLoading(true);
         try {
-            const data = await fetchDevices();
-            setDevices(data);
+            const data = await fetchTemperatures();
+            setTemperatures(data);
             setError(null);
         } catch (err) {
             setError(err.message);
@@ -21,8 +21,8 @@ export default function useDevices() {
     };
 
     useEffect(() => {
-        loadDevices();
+        loadTemperatures();
     }, []);
 
-    return { devices, error, loading, loadDevices };
+    return { temperatures, error, loading, loadTemperatures };
 }

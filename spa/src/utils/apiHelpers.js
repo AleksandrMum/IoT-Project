@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const REACT_APP_API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
 
+// Device API functions
 export const fetchDevices = async () => {
     try {
         const res = await axios.get(`${REACT_APP_API_URL}/devices`);
@@ -11,27 +12,29 @@ export const fetchDevices = async () => {
     }
 };
 
-export const fetchCommands = async () => {
+export const updateDevice = async (deviceId, updates) => {
     try {
-        const res = await axios.get(`${REACT_APP_API_URL}/commands`);
+        const res = await axios.patch(`${REACT_APP_API_URL}/devices/${deviceId}`, updates);
         return res.data;
     } catch (err) {
         throw err;
     }
 };
 
-export const addDevice = async (device) => {
+// Temperature API functions
+export const fetchTemperatures = async () => {
     try {
-        const res = await axios.post(`${REACT_APP_API_URL}/devices`, device);
+        const res = await axios.get(`${REACT_APP_API_URL}/temperatures`);
         return res.data;
     } catch (err) {
         throw err;
     }
 };
 
-export const addCommand = async (command) => {
+// Motion API functions
+export const fetchMotions = async () => {
     try {
-        const res = await axios.post(`${REACT_APP_API_URL}/commands`, command);
+        const res = await axios.get(`${REACT_APP_API_URL}/motions`);
         return res.data;
     } catch (err) {
         throw err;

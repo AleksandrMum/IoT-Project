@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import { fetchDevices } from '../utils';
+import { fetchMotions } from '../utils';
 
-export default function useDevices() {
-    const [devices, setDevices] = useState([]);
+export default function useMotions() {
+    const [motions, setMotions] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const loadDevices = async () => {
+    const loadMotions = async () => {
         setLoading(true);
         try {
-            const data = await fetchDevices();
-            setDevices(data);
+            const data = await fetchMotions();
+            setMotions(data);
             setError(null);
         } catch (err) {
             setError(err.message);
@@ -21,8 +21,8 @@ export default function useDevices() {
     };
 
     useEffect(() => {
-        loadDevices();
+        loadMotions();
     }, []);
 
-    return { devices, error, loading, loadDevices };
+    return { motions, error, loading, loadMotions };
 }
