@@ -38,7 +38,7 @@ void setup(void) {
   server.on(UriBraces("/toggle/{}"), handleToggleLed);
   
   server.begin();
-  Serial.println("HTTP server started (http://localhost:8180)");
+  Serial.println("HTTP server started successfully!");
 }
 
 void loop(void) {
