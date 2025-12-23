@@ -11,7 +11,6 @@ export default (db) => {
 
     /**
      * GET /sensor-data
-     * Получить все данные датчиков
      */
     router.get("/", async (req, res) => {
         try {
@@ -42,7 +41,6 @@ export default (db) => {
 
     /**
      * GET /sensor-data/:sensorId
-     * Получить данные конкретного датчика
      */
     router.get("/:sensorId", async (req, res) => {
         try {
@@ -83,7 +81,6 @@ export default (db) => {
 
     /**
      * POST /sensor-data
-     * Создать новую запись данных датчика (для Arduino)
      * Body: { sensorId, dataType, value }
      */
     router.post("/", async (req, res) => {
@@ -131,7 +128,6 @@ export default (db) => {
 
     /**
      * POST /sensor-data/batch
-     * Создать несколько записей данных датчика за раз
      * Body: { readings: [{ sensorId, dataType, value }, ...] }
      */
     router.post("/batch", async (req, res) => {
@@ -210,7 +206,6 @@ export default (db) => {
 
     /**
      * DELETE /sensor-data/:dataId
-     * Удалить запись данных датчика
      */
     router.delete("/:dataId", async (req, res) => {
         try {

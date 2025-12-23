@@ -1,5 +1,6 @@
 #include "handlers.h"
 #include <WebServer.h>
+#include <HTTPClient.h>
 
 extern WebServer server;
 extern bool led1State, led2State;
@@ -43,6 +44,33 @@ void sendHtml() {
   server.send(200, "text/html", response);
 }
 
+void sendSensorData(int deviceIndex, bool state) {
+  HTTPClient http;
+  
+  String url = NODE_SERVER + "/api/devices/update-state";
+  http.begin(url);
+  http.addHeader("Content-Type", "application/json");
+  
+  String jsonPayload = "{\"controller_id\":1,\"device_index\":" + String(deviceIndex) + 
+                       ",\"state\":" + (state ? "true" : "false") + "}";
+  
+  Serial.println("Sending sensor data:");
+  Serial.println(jsonPayload);
+  
+  int httpResponseCode = http.POST(jsonPayload);
+  if (httpResponseCode > 0) {
+    String response = http.getString();
+    Serial.print("HTTP Response code: ");
+    Serial.println(httpResponseCode);
+    Serial.println("Response: " + response);
+  } else {
+    Serial.print("Error on sending POST: ");
+    Serial.println(httpResponseCode);
+  }
+  
+  http.end();
+}
+
 void handleToggleLed() {
   String led = server.pathArg(0);
   Serial.print("Toggle LED #");
@@ -52,12 +80,16 @@ void handleToggleLed() {
     case 1:
       led1State = !led1State;
       digitalWrite(LED1, led1State);
+      sendSensorData(1, led1State);
       break;
     case 2:
       led2State = !led2State;
       digitalWrite(LED2, led2State);
+      sendSensorData(2, led2State);
       break;
   }
 
   sendHtml();
 }
+
+
